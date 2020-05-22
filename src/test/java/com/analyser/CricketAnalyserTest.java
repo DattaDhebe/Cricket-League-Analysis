@@ -1,8 +1,8 @@
 package com.analyser;
 
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class CricketAnalyserTest {
 
@@ -27,7 +27,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_CSV_FILE_PATH);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.FILE_NOT_FOUND,e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
 
@@ -36,7 +36,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_CSV_FILE_EXTENSION);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.WRONG_EXTENSION,e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.WRONG_EXTENSION, e.type);
         }
     }
 
@@ -45,21 +45,28 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(EMPTY_CSV_FILE);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.INCORRECT_DELIMITER_EXCEPTION,e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.NO_CENSUS_DATA, e.type);
         }
     }
 
     @Test
-    public void givenEmptyFile_ShouldReturnCustomException() {
+    public void givenEmptyFile_ShouldReturnCustomException() throws CricketAnalyserException {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_DELIMITER);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.NO_CENSUS_DATA,e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.NO_CENSUS_DATA, e.type);
         }
     }
 
+    @Test
+    public void givenCSVFile_shouldReturn_averageBattingResult() throws CricketAnalyserException {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.loadSortingOnBattingAverage();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("MS Dhoni", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
 
-
-
+    }
 
 }

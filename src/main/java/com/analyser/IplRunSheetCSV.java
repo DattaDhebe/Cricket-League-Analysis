@@ -4,35 +4,32 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IplRunSheetCSV {
 
-    @CsvBindByName(column ="POS" , required=true)
-    public String position;
-
-    @CsvBindByName(column ="PLAYER" , required=true)
+    @CsvBindByName(column ="PLAYER", required=true)
     public String player;
 
-    @CsvBindByName(column ="Mat")
+    @CsvBindByName(column ="Mat", required=true)
     public int match;
 
-    @CsvBindByName(column ="Inns")
+    @CsvBindByName(column ="Inns", required=true)
     public int innings;
 
-    @CsvBindByName(column ="NO")
+    @CsvBindByName(column ="NO", required=true)
     public int notOut;
 
-    @CsvBindByName(column ="Runs" , required=true)
+    @CsvBindByName(column ="Runs", required=true)
     public int runs;
 
-    @CsvBindByName(column ="SR" )
+    @CsvBindByName(column ="SR", required=true)
     public double strikeRate;
 
-    @CsvBindByName(column ="Avg" )
+    @CsvBindByName(column ="Avg", required=true)
     public double average;
 
-    @CsvBindByName(column ="100" )
+    @CsvBindByName(column ="100", required=true )
     public int hundreds;
 
-    @CsvBindByName(column ="50")
-    public int fifties;
+    @CsvBindByName(column ="50", required=true)
+    public int fiftys;
 
     @CsvBindByName(column ="6s" , required=true)
     public int sixes;
@@ -44,8 +41,7 @@ public class IplRunSheetCSV {
     @Override
     public String toString() {
         return "Ipl2019RunsSheet{" +
-                "position=" + position + '\'' +
-                "player=" + player + '\'' +
+                "player='" + player + '\'' +
                 ", match=" + match +
                 ", innings=" + innings +
                 ", notOut=" + notOut +
@@ -53,7 +49,7 @@ public class IplRunSheetCSV {
                 ", strikeRate=" + strikeRate +
                 ", average=" + average +
                 ", hundreds=" + hundreds +
-                ", fifties=" + fifties +
+                ", fiftys=" + fiftys +
                 ", sixes=" + sixes +
                 ", fours=" + fours +
                 '}';

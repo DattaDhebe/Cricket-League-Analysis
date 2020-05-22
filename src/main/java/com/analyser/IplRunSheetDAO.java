@@ -8,12 +8,21 @@ public class IplRunSheetDAO {
     public double average;
     public int runs;
 
+    public IplRunSheetDAO(IplRunSheetCSV iplRunSheetDAO) {
+        player = iplRunSheetDAO.player;
+        match = iplRunSheetDAO.match;
+        inning = iplRunSheetDAO.innings;
+        average = iplRunSheetDAO.average;
+        runs = iplRunSheetDAO.runs;
+    }
 
-    public IplRunSheetDAO(IplRunSheetCSV iplMostRunCSV) {
-        player = iplMostRunCSV.player;
-        match = iplMostRunCSV.match;
-        inning = iplMostRunCSV.innings;
-        average = iplMostRunCSV. average;
+
+    public IplRunSheetDAO(IplRunSheetDAO iplRunSheetDAO) {
+        player = iplRunSheetDAO.player;
+        match = iplRunSheetDAO.match;
+        inning = iplRunSheetDAO.inning;
+        average = iplRunSheetDAO.average;
+        runs = iplRunSheetDAO.runs;
     }
 
     public IplRunSheetDAO() {
