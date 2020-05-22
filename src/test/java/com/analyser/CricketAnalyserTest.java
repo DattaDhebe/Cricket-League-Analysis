@@ -23,7 +23,7 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenWrongFilePath_ShouldReturnCustomException()  {
+    public void givenWrongFilePath_ShouldReturnCustomException() {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_CSV_FILE_PATH);
         } catch (CricketAnalyserException e) {
@@ -50,7 +50,7 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenEmptyFile_ShouldReturnCustomException() throws CricketAnalyserException {
+    public void givenEmptyFile_ShouldReturnCustomException()  {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_DELIMITER);
         } catch (CricketAnalyserException e) {
@@ -59,12 +59,23 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenCSVFile_shouldReturn_averageBattingResult() throws CricketAnalyserException {
+    public void givenCSVFile_shouldReturn_averageBattingResult()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
             String sortedCricketData = cricketAnalyser.loadSortingOnBattingAverage();
             IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
             Assert.assertEquals("MS Dhoni", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+
+    }
+
+    @Test
+    public void givenCSVFile_shouldReturn_maxStrikeRatePlayer()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.loadSortingOnMaxStrikeRate();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
 
     }

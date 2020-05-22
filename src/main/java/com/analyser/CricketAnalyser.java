@@ -52,4 +52,16 @@ public class CricketAnalyser {
         return sortedAverageDataInJson;
     }
 
+    public String loadSortingOnMaxStrikeRate() throws CricketAnalyserException {
+        if (censusList == null || censusList.size() == 0) {
+            throw new CricketAnalyserException("No Census Data", CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
+
+        }
+        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.strikeRate);
+        List sortedDataByAverage = censusList.stream().
+                sorted(censusComparator).collect(Collectors.toList());
+        String sortedAverageDataInJson = new Gson().toJson(sortedDataByAverage);
+        return sortedAverageDataInJson;
+    }
+
 }
