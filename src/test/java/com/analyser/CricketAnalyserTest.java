@@ -135,5 +135,12 @@ public class CricketAnalyserTest {
 
     }
 
+    @Test
+    public void givenIplMostWkts_whenLoaded_shouldReturnNumberOfRecords() throws CricketAnalyserException {
+        int noOfRecord = cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+        Assert.assertEquals(101, noOfRecord);
+
+    }
+
 
 }

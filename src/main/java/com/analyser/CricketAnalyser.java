@@ -41,60 +41,48 @@ public class CricketAnalyser {
     }
 
     public String loadSortingOnBattingAverage()  {
-        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.average);
-        List sortedDataByAverage = censusList.stream().
-                sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByAverage);
-
+        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
+        return sort(compareByAverage);
     }
 
     public String loadSortingOnMaxStrikeRate()  {
-        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.strikeRate);
-        List sortedDataByStrikeRate = censusList.stream().
-                sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByStrikeRate);
-
+        Comparator<IplRunSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        return sort(compareByStrikeRate);
     }
 
     public String getSixesWiseSortedData()  {
-        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.sixes);
-        List sortedDataBySixes = censusList.stream().
-                sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataBySixes);
-
+        Comparator<IplRunSheetDAO> compareBySixes = Comparator.comparing(cricket -> cricket.sixes);
+        return sort(compareBySixes);
     }
 
     public String getFoursWiseSortedData()  {
-        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.fours);
-        List sortedDataByFours = censusList.stream().
-                sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByFours);
-
+        Comparator<IplRunSheetDAO> compareByFours = Comparator.comparing(cricket -> cricket.fours);
+        return sort(compareByFours);
     }
 
     public String getStrikeRateWithSixesAndFoursWiseSortedData() {
         Comparator<IplRunSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
         Comparator<IplRunSheetDAO> compareBySixes = compareByStrikeRate.thenComparing(cricket -> cricket.sixes);
         Comparator<IplRunSheetDAO> compareByFours = compareBySixes.thenComparing(cricket -> cricket.fours);
-        List sortedDataByStrikeRateWithSixesAndFours = censusList.stream().
-                sorted(compareByFours).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByStrikeRateWithSixesAndFours);
+        return sort(compareByFours);
     }
 
     public String getGreatAverageWithBestStrikingRateWiseSortedData() {
         Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
         Comparator<IplRunSheetDAO> compareByStrikeRate = compareByAverage.thenComparing(cricket -> cricket.strikeRate);
-        List sortedDataByGreatAverageWithStrikeRate = censusList.stream().
-                sorted(compareByStrikeRate).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByGreatAverageWithStrikeRate);
+        return sort(compareByStrikeRate);
     }
 
     public String getMaximumRunWithBestAverageWiseSortedData() {
         Comparator<IplRunSheetDAO> compareByMaximumRuns = Comparator.comparing(cricket -> cricket.runs);
         Comparator<IplRunSheetDAO> compareByBestAverage = compareByMaximumRuns.thenComparing(cricket -> cricket.average);
-        List sortedDataByMaximumRunWithBestAverage = censusList.stream().
-                sorted(compareByBestAverage).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByMaximumRunWithBestAverage);
+        return sort(compareByBestAverage);
+    }
+
+    private String sort(Comparator<IplRunSheetDAO> censusComparator) {
+        List sortedData = censusList.stream().
+                sorted(censusComparator).collect(Collectors.toList());
+        return new Gson().toJson(sortedData);
     }
 
 }
