@@ -8,19 +8,17 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
 
 
-    List<IplRunSheetDAO> censusList = null;
+    List<IplRunSheetDAO> iplRunSheetList = null;
 
     public CricketAnalyser() {
-        this.censusList = new ArrayList<>();
+        this.iplRunSheetList = new ArrayList<>();
     }
 
     public int loadIplMostRunData(String csvFilePath) throws CricketAnalyserException {
@@ -28,15 +26,38 @@ public class CricketAnalyser {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IplRunSheetCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplRunSheetCSV.class);
             while (csvFileIterator.hasNext()) {
-                this.censusList.add(new IplRunSheetDAO(csvFileIterator.next()));
+                this.iplRunSheetList.add(new IplRunSheetDAO(csvFileIterator.next()));
             }
-            return this.censusList.size();
+            return this.iplRunSheetList.size();
         } catch (IOException e) {
             throw new CricketAnalyserException(e.getMessage(),
                     CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (CSVBuilderException e) {
             throw new CricketAnalyserException(e.getMessage(),
                     CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        } catch (RuntimeException e) {
+            throw new CricketAnalyserException(e.getMessage(),
+                    CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
+    }
+
+    public int loadIplMostWicketData(String csvFilePath) throws CricketAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
+            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+            Iterator<IplWicketCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplWicketCSV.class);
+            while (csvFileIterator.hasNext()) {
+                this.iplRunSheetList.add(new IplRunSheetDAO(csvFileIterator.next()));
+            }
+            return this.iplRunSheetList.size();
+        } catch (IOException e) {
+            throw new CricketAnalyserException(e.getMessage(),
+                    CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (CSVBuilderException e) {
+            throw new CricketAnalyserException(e.getMessage(),
+                    CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        } catch (RuntimeException e) {
+            throw new CricketAnalyserException(e.getMessage(),
+                    CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
 
@@ -80,7 +101,7 @@ public class CricketAnalyser {
     }
 
     private String sort(Comparator<IplRunSheetDAO> censusComparator) {
-        List sortedData = censusList.stream().
+        List sortedData = iplRunSheetList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
         return new Gson().toJson(sortedData);
     }

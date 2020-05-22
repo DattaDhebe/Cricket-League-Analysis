@@ -29,6 +29,7 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
+
     }
 
     @Test
@@ -36,8 +37,9 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_CSV_FILE_EXTENSION);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.WRONG_EXTENSION, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
+
     }
 
     @Test
@@ -45,8 +47,9 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(EMPTY_CSV_FILE);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.NO_CENSUS_DATA, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
+
     }
 
     @Test
@@ -54,8 +57,9 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplMostRunData(WRONG_DELIMITER);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.NO_CENSUS_DATA, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
+
     }
 
     @Test
@@ -136,11 +140,50 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenIplMostWkts_whenLoaded_shouldReturnNumberOfRecords() throws CricketAnalyserException {
-        int noOfRecord = cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-        Assert.assertEquals(101, noOfRecord);
+    public void givenIplMostWicket_whenLoaded_shouldReturnNumberOfRecords() throws CricketAnalyserException {
+        int noOfRecord = cricketAnalyser.loadIplMostWicketData(MOST_WICKET_CSV_FILE_PATH);
+        Assert.assertEquals(99, noOfRecord);
 
     }
 
+    @Test
+    public void givenWrongMostWicketPath_ShouldReturnCustomException() {
+        try {
+            cricketAnalyser.loadIplMostWicketData(WRONG_CSV_FILE_PATH);
+        } catch (CricketAnalyserException e) {
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+
+    }
+
+    @Test
+    public void givenWrongMostWicketPath_whenWrongFileExtension_ShouldReturnCustomException() {
+        try {
+            cricketAnalyser.loadIplMostWicketData(WRONG_CSV_FILE_EXTENSION);
+        } catch (CricketAnalyserException e) {
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+
+    }
+
+    @Test
+    public void givenEmptyCSVFile_ShouldReturnCustomException() {
+        try {
+            cricketAnalyser.loadIplMostWicketData(EMPTY_CSV_FILE);
+        } catch (CricketAnalyserException e) {
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+
+    }
+
+    @Test
+    public void givenWrongDelimiterForWicketFile_ShouldReturnCustomException()  {
+        try {
+            cricketAnalyser.loadIplMostWicketData(WRONG_DELIMITER);
+        } catch (CricketAnalyserException e) {
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+        }
+
+    }
 
 }
