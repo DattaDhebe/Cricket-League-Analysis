@@ -50,26 +50,35 @@ public class CricketAnalyser {
 
     public String loadSortingOnMaxStrikeRate()  {
         Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.strikeRate);
-        List sortedDataByAverage = censusList.stream().
+        List sortedDataByStrikeRate = censusList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByAverage);
+        return new Gson().toJson(sortedDataByStrikeRate);
 
     }
 
     public String getSixesWiseSortedData()  {
         Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.sixes);
-        List sortedDataByAverage = censusList.stream().
+        List sortedDataBySixes = censusList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByAverage);
+        return new Gson().toJson(sortedDataBySixes);
 
     }
 
     public String getFoursWiseSortedData()  {
         Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.fours);
-        List sortedDataByAverage = censusList.stream().
+        List sortedDataByFours = censusList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
-        return new Gson().toJson(sortedDataByAverage);
+        return new Gson().toJson(sortedDataByFours);
 
+    }
+
+    public String getStrikeRateWithSixesAndFoursWiseSortedData() {
+        Comparator<IplRunSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        Comparator<IplRunSheetDAO> compareBySixes = compareByStrikeRate.thenComparing(cricket -> cricket.sixes);
+        Comparator<IplRunSheetDAO> compareByFours = compareBySixes.thenComparing(cricket -> cricket.fours);
+        List sortedDataByStrikeRateWithSixesAndFours = censusList.stream().
+                sorted(compareByFours).collect(Collectors.toList());
+        return new Gson().toJson(sortedDataByStrikeRateWithSixesAndFours);
     }
 
 }

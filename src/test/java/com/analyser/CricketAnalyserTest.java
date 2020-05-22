@@ -102,5 +102,16 @@ public class CricketAnalyserTest {
 
     }
 
+    @Test
+    public void givenCSVFile_shouldReturn_whoHasHavingBestStrikeRate_andMaximumSixesAndFoursInFile()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.getStrikeRateWithSixesAndFoursWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("Ishant Sharma", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+
+    }
+
 
 }
