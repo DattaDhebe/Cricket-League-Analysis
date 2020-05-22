@@ -124,7 +124,16 @@ public class CricketAnalyserTest {
 
     }
 
+    @Test
+    public void givenCSVFile_shouldReturn_whoHitsMaximumRunWithBestAverage()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.getMaximumRunWithBestAverageWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("David Warner", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
 
+    }
 
 
 }
