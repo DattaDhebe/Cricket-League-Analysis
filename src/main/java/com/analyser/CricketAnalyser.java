@@ -100,15 +100,20 @@ public class CricketAnalyser {
         return sort(compareByBestAverage);
     }
 
+    public String loadSortingDataOnBowlingAverage()  {
+        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
+        return sort(compareByAverage);
+    }
+
+    public String loadSortingDataOnBowlingStrikingRate()  {
+        Comparator<IplRunSheetDAO> compareByStrikingRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        return sort(compareByStrikingRate);
+    }
+
     private String sort(Comparator<IplRunSheetDAO> censusComparator) {
         List sortedData = iplRunSheetList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
         return new Gson().toJson(sortedData);
-    }
-
-    public String loadSortingOnBowlingAverage()  {
-        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
-        return sort(compareByAverage);
     }
 
 }
