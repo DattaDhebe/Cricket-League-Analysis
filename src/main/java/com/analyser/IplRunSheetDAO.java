@@ -6,19 +6,24 @@ public class IplRunSheetDAO {
     public int match;
     public int inning;
     public int runs;
+    public int sixes;
+    public int fours;
     public double average;
     public double strikeRate;
 
+    public IplRunSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
+        player = iplRunSheetCSV.player;
+        match = iplRunSheetCSV.match;
+        inning = iplRunSheetCSV.innings;
+        average = iplRunSheetCSV.average;
+        runs = iplRunSheetCSV.runs;
+        strikeRate = iplRunSheetCSV.strikeRate;
+        sixes = iplRunSheetCSV.sixes;
+        fours = iplRunSheetCSV.fours;
 
-    public IplRunSheetDAO(IplRunSheetCSV iplRunSheetDAO) {
-        player = iplRunSheetDAO.player;
-        match = iplRunSheetDAO.match;
-        inning = iplRunSheetDAO.innings;
-        average = iplRunSheetDAO.average;
-        runs = iplRunSheetDAO.runs;
-        strikeRate = iplRunSheetDAO.strikeRate;
     }
 
     public IplRunSheetDAO() {
     }
+
 }

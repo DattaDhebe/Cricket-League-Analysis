@@ -20,7 +20,7 @@ public class CricketAnalyser {
     List<IplRunSheetDAO> censusList = null;
 
     public CricketAnalyser() {
-        this.censusList = new ArrayList<IplRunSheetDAO>();
+        this.censusList = new ArrayList<>();
     }
 
     public int loadIplMostRunData(String csvFilePath) throws CricketAnalyserException {
@@ -40,28 +40,36 @@ public class CricketAnalyser {
         }
     }
 
-    public String loadSortingOnBattingAverage() throws CricketAnalyserException {
-        if (censusList == null || censusList.size() == 0) {
-            throw new CricketAnalyserException("No Census Data", CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
-
-        }
+    public String loadSortingOnBattingAverage()  {
         Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.average);
         List sortedDataByAverage = censusList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
-        String sortedAverageDataInJson = new Gson().toJson(sortedDataByAverage);
-        return sortedAverageDataInJson;
+        return new Gson().toJson(sortedDataByAverage);
+
     }
 
-    public String loadSortingOnMaxStrikeRate() throws CricketAnalyserException {
-        if (censusList == null || censusList.size() == 0) {
-            throw new CricketAnalyserException("No Census Data", CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
-
-        }
+    public String loadSortingOnMaxStrikeRate()  {
         Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.strikeRate);
         List sortedDataByAverage = censusList.stream().
                 sorted(censusComparator).collect(Collectors.toList());
-        String sortedAverageDataInJson = new Gson().toJson(sortedDataByAverage);
-        return sortedAverageDataInJson;
+        return new Gson().toJson(sortedDataByAverage);
+
+    }
+
+    public String getSixesWiseSortedData()  {
+        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.sixes);
+        List sortedDataByAverage = censusList.stream().
+                sorted(censusComparator).collect(Collectors.toList());
+        return new Gson().toJson(sortedDataByAverage);
+
+    }
+
+    public String getFoursWiseSortedData()  {
+        Comparator<IplRunSheetDAO> censusComparator = Comparator.comparing(cricket -> cricket.fours);
+        List sortedDataByAverage = censusList.stream().
+                sorted(censusComparator).collect(Collectors.toList());
+        return new Gson().toJson(sortedDataByAverage);
+
     }
 
 }

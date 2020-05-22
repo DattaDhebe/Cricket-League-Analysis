@@ -80,4 +80,27 @@ public class CricketAnalyserTest {
 
     }
 
+    @Test
+    public void givenCSVFile_shouldReturn_whoHitsMaximumSixesInFile()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.getSixesWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("Andre Russell", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+
+    }
+
+    @Test
+    public void givenCSVFile_shouldReturn_whoHitsMaximumFoursInFile()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.getFoursWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("Shikhar Dhawan", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+
+    }
+
+
 }
