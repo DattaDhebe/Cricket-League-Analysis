@@ -106,4 +106,9 @@ public class CricketAnalyser {
         return new Gson().toJson(sortedData);
     }
 
+    public String loadSortingOnBowlingAverage()  {
+        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
+        return sort(compareByAverage);
+    }
+
 }

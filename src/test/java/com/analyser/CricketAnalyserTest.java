@@ -19,7 +19,6 @@ public class CricketAnalyserTest {
     public void givenIplMostRun_whenLoaded_shouldReturnNumberOfRecords() throws CricketAnalyserException {
         int noOfRecord = cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
         Assert.assertEquals(101, noOfRecord);
-
     }
 
     @Test
@@ -29,7 +28,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -39,7 +37,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -49,7 +46,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -59,91 +55,82 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_averageBattingResult()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.loadSortingOnBattingAverage();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.loadSortingOnBattingAverage();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("MS Dhoni", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_maxStrikeRatePlayer()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.loadSortingOnMaxStrikeRate();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.loadSortingOnMaxStrikeRate();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("Ishant Sharma", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_whoHitsMaximumSixes()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.getSixesWiseSortedData();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.getSixesWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("Andre Russell", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_whoHitsMaximumFours()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.getFoursWiseSortedData();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.getFoursWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("Shikhar Dhawan", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_whoHasHavingBestStrikeRate_andMaximumSixesAndFours()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.getStrikeRateWithSixesAndFoursWiseSortedData();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.getStrikeRateWithSixesAndFoursWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("Ishant Sharma", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_whoHasGreateAverage_withBestStrikingRate()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.getGreatAverageWithBestStrikingRateWiseSortedData();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.getGreatAverageWithBestStrikingRateWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("MS Dhoni", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenCSVFile_shouldReturn_whoHitsMaximumRunWithBestAverage()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
-            String sortedCricketData = cricketAnalyser.getMaximumRunWithBestAverageWiseSortedData();
-            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            String sortedRunsData = cricketAnalyser.getMaximumRunWithBestAverageWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
             Assert.assertEquals("David Warner", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
         } catch (CricketAnalyserException ignore) { }
-
     }
 
     @Test
     public void givenIplMostWicket_whenLoaded_shouldReturnNumberOfRecords() throws CricketAnalyserException {
         int noOfRecord = cricketAnalyser.loadIplMostWicketData(MOST_WICKET_CSV_FILE_PATH);
         Assert.assertEquals(99, noOfRecord);
-
     }
 
     @Test
@@ -153,7 +140,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -163,7 +149,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -173,7 +158,6 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
-
     }
 
     @Test
@@ -183,7 +167,16 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException e) {
             Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
+    }
 
+    @Test
+    public void givenCSVFile_shouldReturn_topBowlingAverageResult()  {
+        try {
+            cricketAnalyser.loadIplMostWicketData(MOST_WICKET_CSV_FILE_PATH);
+            String sortedWicketData = cricketAnalyser.loadSortingOnBowlingAverage();
+            IplWicketCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedWicketData, IplWicketCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
     }
 
 }
