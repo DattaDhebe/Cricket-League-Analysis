@@ -81,7 +81,7 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenCSVFile_shouldReturn_whoHitsMaximumSixesInFile()  {
+    public void givenCSVFile_shouldReturn_whoHitsMaximumSixes()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
             String sortedCricketData = cricketAnalyser.getSixesWiseSortedData();
@@ -92,7 +92,7 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenCSVFile_shouldReturn_whoHitsMaximumFoursInFile()  {
+    public void givenCSVFile_shouldReturn_whoHitsMaximumFours()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
             String sortedCricketData = cricketAnalyser.getFoursWiseSortedData();
@@ -103,7 +103,7 @@ public class CricketAnalyserTest {
     }
 
     @Test
-    public void givenCSVFile_shouldReturn_whoHasHavingBestStrikeRate_andMaximumSixesAndFoursInFile()  {
+    public void givenCSVFile_shouldReturn_whoHasHavingBestStrikeRate_andMaximumSixesAndFours()  {
         try {
             cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
             String sortedCricketData = cricketAnalyser.getStrikeRateWithSixesAndFoursWiseSortedData();
@@ -112,6 +112,19 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException ignore) { }
 
     }
+
+    @Test
+    public void givenCSVFile_shouldReturn_whoHasGreateAverage_withBestStrikingRate()  {
+        try {
+            cricketAnalyser.loadIplMostRunData(MOST_RUN_CSV_FILE_PATH);
+            String sortedCricketData = cricketAnalyser.getGreatAverageWithBestStrikingRateWiseSortedData();
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedCricketData, IplRunSheetCSV[].class);
+            Assert.assertEquals("MS Dhoni", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+
+    }
+
+
 
 
 }

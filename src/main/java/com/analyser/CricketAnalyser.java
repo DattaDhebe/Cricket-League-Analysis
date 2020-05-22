@@ -81,4 +81,13 @@ public class CricketAnalyser {
         return new Gson().toJson(sortedDataByStrikeRateWithSixesAndFours);
     }
 
+    public String getGreatAverageWithBestStrikingRateWiseSortedData() {
+        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
+        Comparator<IplRunSheetDAO> compareByStrikeRate = compareByAverage.thenComparing(cricket -> cricket.strikeRate);
+        List sortedDataByGreatAverageWithStrikeRate = censusList.stream().
+                sorted(compareByStrikeRate).collect(Collectors.toList());
+        return new Gson().toJson(sortedDataByGreatAverageWithStrikeRate);
+    }
+
+
 }
