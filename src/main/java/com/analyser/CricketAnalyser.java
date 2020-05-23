@@ -11,44 +11,40 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class CricketAnalyser {
 
 
-    List<IplRunSheetDAO> iplRunSheetList = null;
+    Map<String, IplSheetDAO> iplRunSheetMap;
 
     public CricketAnalyser() {
-        this.iplRunSheetList = new ArrayList<>();
+        this.iplRunSheetMap = new HashMap<>();
     }
 
     public int loadIplMostRunData(String csvFilePath) throws CricketAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IplRunSheetCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplRunSheetCSV.class);
-            while (csvFileIterator.hasNext()) {
-                this.iplRunSheetList.add(new IplRunSheetDAO(csvFileIterator.next()));
-            }
-            return this.iplRunSheetList.size();
-        } catch (IOException e) {
-            throw new CricketAnalyserException(e.getMessage(),
-                    CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (CSVBuilderException e) {
-            throw new CricketAnalyserException(e.getMessage(),
-                    CricketAnalyserException.ExceptionType.NO_CENSUS_DATA);
-        } catch (RuntimeException e) {
-            throw new CricketAnalyserException(e.getMessage(),
-                    CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        }
+        return loadCricketData(csvFilePath, IplRunSheetCSV.class);
     }
 
     public int loadIplMostWicketData(String csvFilePath) throws CricketAnalyserException {
+        return loadCricketData(csvFilePath, IplWicketCSV.class);
+    }
+
+    private <E> int loadCricketData(String csvFilePath, Class<E> iplCSVClass) throws CricketAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IplWicketCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplWicketCSV.class);
-            while (csvFileIterator.hasNext()) {
-                this.iplRunSheetList.add(new IplRunSheetDAO(csvFileIterator.next()));
+            Iterator<E> csvFileIterator = csvBuilder.getCSVFileIterator(reader, iplCSVClass);
+            Iterable<E> csvIterable=()->csvFileIterator;
+            if (iplCSVClass.getName().equals("com.analyser.IplRunSheetCSV")) {
+                StreamSupport.stream(csvIterable.spliterator(),false)
+                        .map(IplRunSheetCSV.class::cast)
+                        .forEach(iplRunsCSV -> iplRunSheetMap.put(iplRunsCSV.player,new IplSheetDAO(iplRunsCSV)));
+            } else if (iplCSVClass.getName().equals("com.analyser.IplWicketCSV")) {
+                StreamSupport.stream(csvIterable.spliterator(),false)
+                        .map(IplWicketCSV.class::cast)
+                        .forEach(iplRunsCSV -> iplRunSheetMap.put(iplRunsCSV.player,new IplSheetDAO(iplRunsCSV)));
             }
-            return this.iplRunSheetList.size();
+            return this.iplRunSheetMap.size();
         } catch (IOException e) {
             throw new CricketAnalyserException(e.getMessage(),
                     CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -62,98 +58,98 @@ public class CricketAnalyser {
     }
 
     public String loadSortingOnBattingAverage()  {
-        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.battingAverage);
+        Comparator<IplSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.battingAverage);
         return sort(compareByAverage);
     }
 
     public String loadSortingOnMaxStrikeRate()  {
-        Comparator<IplRunSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        Comparator<IplSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
         return sort(compareByStrikeRate);
     }
 
     public String getSixesWiseSortedData()  {
-        Comparator<IplRunSheetDAO> compareBySixes = Comparator.comparing(cricket -> cricket.sixes);
+        Comparator<IplSheetDAO> compareBySixes = Comparator.comparing(cricket -> cricket.sixes);
         return sort(compareBySixes);
     }
 
     public String getFoursWiseSortedData()  {
-        Comparator<IplRunSheetDAO> compareByFours = Comparator.comparing(cricket -> cricket.fours);
+        Comparator<IplSheetDAO> compareByFours = Comparator.comparing(cricket -> cricket.fours);
         return sort(compareByFours);
     }
 
     public String getStrikeRateWithSixesAndFoursWiseSortedData() {
-        Comparator<IplRunSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
-        Comparator<IplRunSheetDAO> compareBySixes = compareByStrikeRate.thenComparing(cricket -> cricket.sixes);
-        Comparator<IplRunSheetDAO> compareByFours = compareBySixes.thenComparing(cricket -> cricket.fours);
+        Comparator<IplSheetDAO> compareByStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        Comparator<IplSheetDAO> compareBySixes = compareByStrikeRate.thenComparing(cricket -> cricket.sixes);
+        Comparator<IplSheetDAO> compareByFours = compareBySixes.thenComparing(cricket -> cricket.fours);
         return sort(compareByFours);
     }
 
     public String getGreatAverageWithBestStrikingRateWiseSortedData() {
-        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.battingAverage);
-        Comparator<IplRunSheetDAO> compareByStrikeRate = compareByAverage
+        Comparator<IplSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.battingAverage);
+        Comparator<IplSheetDAO> compareByStrikeRate = compareByAverage
                                                          .thenComparing(cricket -> cricket.strikeRate);
         return sort(compareByStrikeRate);
     }
 
     public String getMaximumRunWithBestAverageWiseSortedData() {
-        Comparator<IplRunSheetDAO> compareByMaximumRuns = Comparator.comparing(cricket -> cricket.battingRuns);
-        Comparator<IplRunSheetDAO> compareByBestAverage = compareByMaximumRuns
+        Comparator<IplSheetDAO> compareByMaximumRuns = Comparator.comparing(cricket -> cricket.battingRuns);
+        Comparator<IplSheetDAO> compareByBestAverage = compareByMaximumRuns
                                                           .thenComparing(cricket -> cricket.battingAverage);
         return sort(compareByBestAverage);
     }
 
     public String loadSortingDataOnBowlingAverage()  {
-        Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
+        Comparator<IplSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
         return sort(compareByAverage);
     }
 
     public String loadSortingDataOnBowlingStrikingRate()  {
-        Comparator<IplRunSheetDAO> compareByStrikingRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        Comparator<IplSheetDAO> compareByStrikingRate = Comparator.comparing(cricket -> cricket.strikeRate);
         return sort(compareByStrikingRate);
     }
 
     public String loadSortingDataOnBestEconomyRate()  {
-        Comparator<IplRunSheetDAO> compareByEconomyRate = Comparator.comparing(cricket -> cricket.economy);
+        Comparator<IplSheetDAO> compareByEconomyRate = Comparator.comparing(cricket -> cricket.economy);
         return sort(compareByEconomyRate);
     }
 
     public String getStrikeRateWithFiveWicketsAndFourWicketsDataWiseSorted() {
-        Comparator<IplRunSheetDAO> compareByFiveWickets = Comparator.comparing(cricket -> cricket.fiveWickets);
-        Comparator<IplRunSheetDAO> compareByFourWickets = compareByFiveWickets
+        Comparator<IplSheetDAO> compareByFiveWickets = Comparator.comparing(cricket -> cricket.fiveWickets);
+        Comparator<IplSheetDAO> compareByFourWickets = compareByFiveWickets
                                                           .thenComparing(cricket -> cricket.fourWickets);
         return sort(compareByFourWickets);
     }
 
     public String getGreatBowlingAverageWithBestStrikeRateDataWiseSorted() {
-        Comparator<IplRunSheetDAO> compareByBestAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
-        Comparator<IplRunSheetDAO> compareByBestStrikeRate = compareByBestAverage
+        Comparator<IplSheetDAO> compareByBestAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
+        Comparator<IplSheetDAO> compareByBestStrikeRate = compareByBestAverage
                                                           .thenComparing(cricket -> cricket.strikeRate);
         return sort(compareByBestStrikeRate);
     }
 
     public String getSortedDataOnWhoTookMaximumWickets() {
-        Comparator<IplRunSheetDAO> compareByMaximumWickets = Comparator.comparing(cricket -> cricket.wickets);
-        Comparator<IplRunSheetDAO> compareByBestBowlingAverage = compareByMaximumWickets
+        Comparator<IplSheetDAO> compareByMaximumWickets = Comparator.comparing(cricket -> cricket.wickets);
+        Comparator<IplSheetDAO> compareByBestBowlingAverage = compareByMaximumWickets
                                                           .thenComparing(cricket -> cricket.bowlingAverage);
         return sort(compareByBestBowlingAverage);
     }
 
     public String getSortedDataOnWhoBestBowlingAndBattingAverage() {
-        Comparator<IplRunSheetDAO> compareByBattingAverage = Comparator.comparing(cricket -> cricket.battingAverage);
-        Comparator<IplRunSheetDAO> compareByBowlingAverage = compareByBattingAverage
+        Comparator<IplSheetDAO> compareByBattingAverage = Comparator.comparing(cricket -> cricket.battingAverage);
+        Comparator<IplSheetDAO> compareByBowlingAverage = compareByBattingAverage
                                                             .thenComparing(cricket -> cricket.bowlingAverage);
         return sort(compareByBowlingAverage);
     }
 
     public String getSortedDataOnMostRunsAndMostWickets() {
-        Comparator<IplRunSheetDAO> compareByMostRuns = Comparator.comparing(cricket -> cricket.battingRuns);
-        Comparator<IplRunSheetDAO> compareByMostWickets = compareByMostRuns
+        Comparator<IplSheetDAO> compareByMostRuns = Comparator.comparing(cricket -> cricket.battingRuns);
+        Comparator<IplSheetDAO> compareByMostWickets = compareByMostRuns
                                                          .thenComparing(cricket -> cricket.wickets);
         return sort(compareByMostWickets);
     }
 
-    private String sort(Comparator<IplRunSheetDAO> censusComparator) {
-        List sortedData = iplRunSheetList.stream().
+    private String sort(Comparator<IplSheetDAO> censusComparator) {
+        List sortedData = iplRunSheetMap.values().stream().
                 sorted(censusComparator).collect(Collectors.toList());
         return new Gson().toJson(sortedData);
     }

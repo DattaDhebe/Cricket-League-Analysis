@@ -1,6 +1,6 @@
 package com.analyser;
 
-public class IplRunSheetDAO {
+public class IplSheetDAO {
 
     public String player;
     public int match;
@@ -17,7 +17,7 @@ public class IplRunSheetDAO {
     public double strikeRate;
     public double economy;
 
-    public IplRunSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
+    public IplSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
         player = iplRunSheetCSV.player;
         match = iplRunSheetCSV.match;
         inning = iplRunSheetCSV.innings;
@@ -29,7 +29,7 @@ public class IplRunSheetDAO {
 
     }
 
-    public IplRunSheetDAO(IplWicketCSV iplWicketCSV) {
+    public IplSheetDAO(IplWicketCSV iplWicketCSV) {
         player = iplWicketCSV.player;
         match = iplWicketCSV.match;
         inning = iplWicketCSV.innings;
@@ -43,7 +43,6 @@ public class IplRunSheetDAO {
 
     }
 
-    public IplRunSheetDAO() {
+    public IplSheetDAO() {
     }
-
 }
