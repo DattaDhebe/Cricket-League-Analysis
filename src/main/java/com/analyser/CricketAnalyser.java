@@ -90,13 +90,15 @@ public class CricketAnalyser {
 
     public String getGreatAverageWithBestStrikingRateWiseSortedData() {
         Comparator<IplRunSheetDAO> compareByAverage = Comparator.comparing(cricket -> cricket.average);
-        Comparator<IplRunSheetDAO> compareByStrikeRate = compareByAverage.thenComparing(cricket -> cricket.strikeRate);
+        Comparator<IplRunSheetDAO> compareByStrikeRate = compareByAverage
+                                                         .thenComparing(cricket -> cricket.strikeRate);
         return sort(compareByStrikeRate);
     }
 
     public String getMaximumRunWithBestAverageWiseSortedData() {
         Comparator<IplRunSheetDAO> compareByMaximumRuns = Comparator.comparing(cricket -> cricket.runs);
-        Comparator<IplRunSheetDAO> compareByBestAverage = compareByMaximumRuns.thenComparing(cricket -> cricket.average);
+        Comparator<IplRunSheetDAO> compareByBestAverage = compareByMaximumRuns
+                                                          .thenComparing(cricket -> cricket.average);
         return sort(compareByBestAverage);
     }
 
@@ -113,6 +115,15 @@ public class CricketAnalyser {
     public String loadSortingDataOnBestEconomyRate()  {
         Comparator<IplRunSheetDAO> compareByEconomyRate = Comparator.comparing(cricket -> cricket.economy);
         return sort(compareByEconomyRate);
+    }
+
+    public String getStrikeRateWithFiveWicketsAndFourWicketsDataWiseSorted() {
+        Comparator<IplRunSheetDAO> compareByStrikingRate = Comparator.comparing(cricket -> cricket.strikeRate);
+        Comparator<IplRunSheetDAO> compareByFiveWickets = compareByStrikingRate
+                                                          .thenComparing(cricket -> cricket.fiveWickets);
+        Comparator<IplRunSheetDAO> compareByFourWickets = compareByFiveWickets
+                                                          .thenComparing(cricket -> cricket.fourWickets);
+        return sort(compareByFourWickets);
     }
 
     private String sort(Comparator<IplRunSheetDAO> censusComparator) {

@@ -9,6 +9,8 @@ public class IplRunSheetDAO {
     public int sixes;
     public int fours;
     public int wickets;
+    public int fiveWickets;
+    public int fourWickets;
     public double average;
     public double strikeRate;
     public double economy;
@@ -34,6 +36,8 @@ public class IplRunSheetDAO {
         strikeRate = iplWicketCSV.strikeRate;
         wickets = iplWicketCSV.wickets;
         economy = iplWicketCSV.economy;
+        fiveWickets = iplWicketCSV.fiveWickets;
+        fourWickets = iplWicketCSV.fourWickets;
 
     }
 

@@ -199,4 +199,16 @@ public class CricketAnalyserTest {
         } catch (CricketAnalyserException ignore) { }
     }
 
+    @Test
+    public void givenCSVFile_shouldReturn_playerWithBestStrikeRateWith5wAnd4wData()  {
+        try {
+            cricketAnalyser.loadIplMostWicketData(MOST_WICKET_CSV_FILE_PATH);
+            String sortedWicketData = cricketAnalyser.getStrikeRateWithFiveWicketsAndFourWicketsDataWiseSorted();
+            IplWicketCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedWicketData, IplWicketCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", iplRunSheetCSVS[iplRunSheetCSVS.length-1].player);
+        } catch (CricketAnalyserException ignore) { }
+    }
+
+
+
 }
