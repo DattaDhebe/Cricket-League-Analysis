@@ -124,11 +124,16 @@ public class CricketAnalyser {
         return sort(compareByFourWickets);
     }
 
-    public String getGreatBowlingAverageWithBestStrikeRateDataDataWiseSorted() {
+    public String getGreatBowlingAverageWithBestStrikeRateDataWiseSorted() {
         Comparator<IplRunSheetDAO> compareByBestStrikeRate = Comparator.comparing(cricket -> cricket.strikeRate);
         Comparator<IplRunSheetDAO> compareByBestAverage = compareByBestStrikeRate
                                                           .thenComparing(cricket -> cricket.average);
         return sort(compareByBestAverage);
+    }
+
+    public String getSortedDataOnWhoTookMaximumWickets() {
+        Comparator<IplRunSheetDAO> compareByMaximumWickets = Comparator.comparing(cricket -> cricket.wickets);
+        return sort(compareByMaximumWickets);
     }
 
     private String sort(Comparator<IplRunSheetDAO> censusComparator) {
