@@ -5,13 +5,15 @@ public class IplRunSheetDAO {
     public String player;
     public int match;
     public int inning;
-    public int runs;
+    public int battingRuns;
+    public int bowlingRuns;
     public int sixes;
     public int fours;
     public int wickets;
     public int fiveWickets;
     public int fourWickets;
-    public double average;
+    public double battingAverage;
+    public double bowlingAverage;
     public double strikeRate;
     public double economy;
 
@@ -19,8 +21,8 @@ public class IplRunSheetDAO {
         player = iplRunSheetCSV.player;
         match = iplRunSheetCSV.match;
         inning = iplRunSheetCSV.innings;
-        average = iplRunSheetCSV.average;
-        runs = iplRunSheetCSV.runs;
+        battingAverage = iplRunSheetCSV.average;
+        battingRuns = iplRunSheetCSV.runs;
         strikeRate = iplRunSheetCSV.strikeRate;
         sixes = iplRunSheetCSV.sixes;
         fours = iplRunSheetCSV.fours;
@@ -31,8 +33,8 @@ public class IplRunSheetDAO {
         player = iplWicketCSV.player;
         match = iplWicketCSV.match;
         inning = iplWicketCSV.innings;
-        average = iplWicketCSV.average;
-        runs = iplWicketCSV.runs;
+        bowlingAverage = iplWicketCSV.average;
+        bowlingRuns = iplWicketCSV.runs;
         strikeRate = iplWicketCSV.strikeRate;
         wickets = iplWicketCSV.wickets;
         economy = iplWicketCSV.economy;
