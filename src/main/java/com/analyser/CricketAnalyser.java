@@ -110,6 +110,11 @@ public class CricketAnalyser {
         return sort(compareByStrikingRate);
     }
 
+    public String loadSortingDataOnBestEconomyRate()  {
+        Comparator<IplRunSheetDAO> compareByEconomyRate = Comparator.comparing(cricket -> cricket.economy);
+        return sort(compareByEconomyRate);
+    }
+
     private String sort(Comparator<IplRunSheetDAO> censusComparator) {
         List sortedData = iplRunSheetList.stream().
                 sorted(censusComparator).collect(Collectors.toList());

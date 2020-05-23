@@ -11,6 +11,7 @@ public class IplRunSheetDAO {
     public int wickets;
     public double average;
     public double strikeRate;
+    public double economy;
 
     public IplRunSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
         player = iplRunSheetCSV.player;
@@ -32,6 +33,7 @@ public class IplRunSheetDAO {
         runs = iplWicketCSV.runs;
         strikeRate = iplWicketCSV.strikeRate;
         wickets = iplWicketCSV.wickets;
+        economy = iplWicketCSV.economy;
 
     }
 
