@@ -2,6 +2,7 @@ package com.analyser;
 
 import com.censusanalyser.CSVBuilderException;
 import com.censusanalyser.CSVBuilderFactory;
+import com.censusanalyser.CensusAnalyserException;
 import com.censusanalyser.ICSVBuilder;
 
 import java.io.IOException;
@@ -14,6 +15,16 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public class IplFileLoader {
+
+    public  <E> Map<String, IplSheetDAO> loadCricketData(CricketAnalyser.Cricket cricket, String... csvFilePath) throws CricketAnalyserException {
+        if (cricket.equals(CricketAnalyser.Cricket.BATTING))
+            return this.loadCricketData(IplRunSheetCSV.class, csvFilePath);
+        else if (cricket.equals(CricketAnalyser.Cricket.BOWLING))
+            return this.loadCricketData(IplWicketCSV.class, csvFilePath);
+        else
+            throw new CricketAnalyserException("Invalid File", CricketAnalyserException.ExceptionType.INVALID_FILE);
+    }
+
 
     public  <E> Map<String, IplSheetDAO> loadCricketData(Class<E> iplCSVClass, String... csvFilePath) throws CricketAnalyserException {
         Map<String, IplSheetDAO> iplRunSheetMap = new HashMap<>();
@@ -42,4 +53,5 @@ public class IplFileLoader {
                     CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
     }
+
 }

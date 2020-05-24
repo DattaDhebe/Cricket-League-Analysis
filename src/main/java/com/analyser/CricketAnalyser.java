@@ -7,18 +7,14 @@ import java.util.stream.Collectors;
 
 public class CricketAnalyser {
 
+    public enum Cricket { BATTING, BOWLING };
 
     Map<String, IplSheetDAO> iplRunSheetMap;
 
     public CricketAnalyser() {    }
 
-    public int loadIplMostRunData(String... csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplFileLoader().loadCricketData(IplRunSheetCSV.class, csvFilePath);
-        return this.iplRunSheetMap.size();
-    }
-
-    public int loadIplMostWicketData(String... csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplFileLoader().loadCricketData(IplWicketCSV.class, csvFilePath);
+    public int loadIplData(Cricket cricket, String... csvFilePath) throws CricketAnalyserException {
+        iplRunSheetMap = new IplFileLoader().loadCricketData(cricket, csvFilePath);
         return this.iplRunSheetMap.size();
     }
 

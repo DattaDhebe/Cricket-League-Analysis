@@ -12,7 +12,8 @@ public class CricketAnalyserException extends Exception {
     }
 
     public enum ExceptionType {
-        CENSUS_FILE_PROBLEM, NO_CENSUS_DATA;
+        CENSUS_FILE_PROBLEM, NO_CENSUS_DATA, INVALID_FILE;
+
     }
 
     public CricketAnalyserException.ExceptionType type;
