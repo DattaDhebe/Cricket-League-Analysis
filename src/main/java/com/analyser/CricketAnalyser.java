@@ -10,17 +10,15 @@ public class CricketAnalyser {
 
     Map<String, IplSheetDAO> iplRunSheetMap;
 
-    public CricketAnalyser() {
-        this.iplRunSheetMap = new HashMap<>();
-    }
+    public CricketAnalyser() {    }
 
-    public int loadIplMostRunData(String csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplFileLoader().loadCricketData(csvFilePath, IplRunSheetCSV.class);
+    public int loadIplMostRunData(String... csvFilePath) throws CricketAnalyserException {
+        iplRunSheetMap = new IplFileLoader().loadCricketData(IplRunSheetCSV.class, csvFilePath);
         return this.iplRunSheetMap.size();
     }
 
-    public int loadIplMostWicketData(String csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplFileLoader().loadCricketData(csvFilePath, IplWicketCSV.class);
+    public int loadIplMostWicketData(String... csvFilePath) throws CricketAnalyserException {
+        iplRunSheetMap = new IplFileLoader().loadCricketData(IplWicketCSV.class, csvFilePath);
         return this.iplRunSheetMap.size();
     }
 
