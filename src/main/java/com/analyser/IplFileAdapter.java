@@ -15,9 +15,10 @@ import java.util.stream.StreamSupport;
 
 public abstract class IplFileAdapter {
 
-    public abstract Map<String, IplSheetDAO> loadCricketData(String... csvFilePath) throws CricketAnalyserException;
+    public abstract Map<String, IplSheetDAO> loadCricketData(CricketAnalyser.Cricket cricket, String... csvFilePath)
+                                                            throws CricketAnalyserException;
 
-    public  <E> Map<String, IplSheetDAO> loadCricketData(Class<E> iplCSVClass, String... csvFilePath)
+    public <E> Map<String, IplSheetDAO> loadCricketData(Class<E> iplCSVClass, String... csvFilePath)
             throws CricketAnalyserException {
         Map<String, IplSheetDAO> iplRunSheetMap = new HashMap<>();
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));) {
@@ -45,6 +46,5 @@ public abstract class IplFileAdapter {
                     CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM);
         }
     }
-
 
 }
