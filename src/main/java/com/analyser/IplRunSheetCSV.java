@@ -20,7 +20,7 @@ public class IplRunSheetCSV {
     public int runs;
 
     @CsvBindByName(column ="SR", required=true)
-    public double strikeRate;
+    public double battingStrikeRate;
 
     @CsvBindByName(column ="Avg", required=true)
     public double average;
@@ -46,7 +46,7 @@ public class IplRunSheetCSV {
                 ", innings=" + innings +
                 ", notOut=" + notOut +
                 ", runs=" + runs +
-                ", strikeRate=" + strikeRate +
+                ", strikeRate=" + battingStrikeRate +
                 ", average=" + average +
                 ", hundreds=" + hundreds +
                 ", fiftys=" + fiftys +

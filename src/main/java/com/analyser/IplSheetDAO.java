@@ -14,7 +14,8 @@ public class IplSheetDAO {
     public int fourWickets;
     public double battingAverage;
     public double bowlingAverage;
-    public double strikeRate;
+    public double battingStrikeRate;
+    public double bowlingStrikeRate;
     public double economy;
 
     public IplSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
@@ -23,7 +24,7 @@ public class IplSheetDAO {
         inning = iplRunSheetCSV.innings;
         battingAverage = iplRunSheetCSV.average;
         battingRuns = iplRunSheetCSV.runs;
-        strikeRate = iplRunSheetCSV.strikeRate;
+        battingStrikeRate = iplRunSheetCSV.battingStrikeRate;
         sixes = iplRunSheetCSV.sixes;
         fours = iplRunSheetCSV.fours;
 
@@ -35,7 +36,7 @@ public class IplSheetDAO {
         inning = iplWicketCSV.innings;
         bowlingAverage = iplWicketCSV.average;
         bowlingRuns = iplWicketCSV.runs;
-        strikeRate = iplWicketCSV.strikeRate;
+        bowlingStrikeRate = iplWicketCSV.bowlingStrikeRate;
         wickets = iplWicketCSV.wickets;
         economy = iplWicketCSV.economy;
         fiveWickets = iplWicketCSV.fiveWickets;

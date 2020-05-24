@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class IplAdapterFactory {
 
-    public Map<String, IplSheetDAO> CricketFactory(CricketAnalyser.Cricket cricket, String... csvFilePath)
+    public Map<String, IplSheetDAO> cricketFactory(CricketAnalyser.Cricket cricket, String... csvFilePath)
                                                   throws CricketAnalyserException {
         if (cricket.equals(cricket.BATTING))
             return new IplBatsmanAdapter().loadCricketData(cricket, csvFilePath);

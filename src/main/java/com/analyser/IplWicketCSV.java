@@ -29,7 +29,7 @@ public class IplWicketCSV {
     public double economy;
 
     @CsvBindByName(column = "SR")
-    public double strikeRate;
+    public double bowlingStrikeRate;
 
     @CsvBindByName(column = "5w")
     public int fiveWickets;
@@ -48,7 +48,7 @@ public class IplWicketCSV {
                 ", wickets=" + wickets +
                 ", average=" + average +
                 ", economy=" + economy +
-                ", strikeRate=" + strikeRate +
+                ", strikeRate=" + bowlingStrikeRate +
                 ", fiveWickets=" + fiveWickets +
                 ", fourWickets=" + fourWickets +
                 '}';
