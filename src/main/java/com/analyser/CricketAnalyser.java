@@ -14,7 +14,7 @@ public class CricketAnalyser {
     public CricketAnalyser() {    }
 
     public int loadIplData(Cricket cricket, String... csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplFileLoader().loadCricketData(cricket, csvFilePath);
+        iplRunSheetMap = new IplAdapterFactory().loadCricketData(cricket, csvFilePath);
         return this.iplRunSheetMap.size();
     }
 

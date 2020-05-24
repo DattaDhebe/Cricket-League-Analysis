@@ -26,7 +26,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BATTING, WRONG_CSV_FILE_PATH);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.INVALID_FILE, e.type);
         }
     }
 
@@ -35,7 +35,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BATTING, WRONG_CSV_FILE_EXTENSION);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
@@ -44,7 +44,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BATTING, EMPTY_CSV_FILE);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
@@ -53,7 +53,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BATTING, WRONG_DELIMITER);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
@@ -138,7 +138,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BOWLING, WRONG_CSV_FILE_PATH);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.INVALID_FILE, e.type);
         }
     }
 
@@ -147,7 +147,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BOWLING, WRONG_CSV_FILE_EXTENSION);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
@@ -156,7 +156,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BOWLING, EMPTY_CSV_FILE);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
@@ -165,7 +165,7 @@ public class CricketAnalyserTest {
         try {
             cricketAnalyser.loadIplData(CricketAnalyser.Cricket.BOWLING, WRONG_DELIMITER);
         } catch (CricketAnalyserException e) {
-            Assert.assertEquals(CricketAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+            Assert.assertEquals(CricketAnalyserException.ExceptionType.CRICKET_FILE_PROBLEM, e.type);
         }
     }
 
