@@ -9,11 +9,10 @@ public class SortData {
     static Map<Parameter, Comparator> sortParameterComparator = new HashMap<>();
 
     public enum Parameter {
-        BATTING_AVERAGE, BOWLING_AVERAGE, STRIKE_RATE, BOWLING_STRIKE_RATE, FOURS, SIX,
+        BATTING_AVERAGE, BOWLING_AVERAGE, STRIKE_RATE, BOWLING_STRIKE_RATE, FOURS, SIXES,
         ECONOMY, WICKETS, FIVE_FOUR_WICKETS_STRIKE_RATE, BEST_ALL_ROUNDER,
-        BEST_STRIKE_RATE_MAC_SIXES_FOURS, GREAT_AVERAGE_BEST_STRIKE_RATE, MAX_RUN_WITH_BATTING_AVERAGE,
-        BEST_BOWLING_BATTING_AVERAGE, BEST_BOWLING_AVERAGE_STRIKE_RATE;
-
+        BEST_STRIKE_RATE_MAC_SIXES_FOURS, GREAT_AVERAGE_BEST_STRIKE_RATE, FIVE_WICKETS, FOUR_WICKETS,
+        MAX_RUN_WITH_BATTING_AVERAGE, BEST_BOWLING_BATTING_AVERAGE, BEST_BOWLING_AVERAGE_STRIKE_RATE;
     }
 
     SortData() {    }
@@ -28,6 +27,7 @@ public class SortData {
         Comparator<IplSheetDAO> comparatorForSixes = Comparator.comparing(cricket -> cricket.sixes);
         Comparator<IplSheetDAO> comparatorForEconomy = Comparator.comparing(cricket -> cricket.economy);
         Comparator<IplSheetDAO> comparatorForFiveWickets = Comparator.comparing(cricket -> cricket.fiveWickets);
+        Comparator<IplSheetDAO> comparatorForFourWickets = Comparator.comparing(cricket -> cricket.fourWickets);
         Comparator<IplSheetDAO> comparatorForBattingRun = Comparator.comparing(cricket -> cricket.battingRuns);
         Comparator<IplSheetDAO> comparatorForWickets = Comparator.comparing(cricket -> cricket.wickets);
 
@@ -36,9 +36,11 @@ public class SortData {
         sortParameterComparator.put(Parameter.STRIKE_RATE, comparatorForStrikeRate);
         sortParameterComparator.put(Parameter.BOWLING_STRIKE_RATE,comparatorForBowlingStrikeRate);
         sortParameterComparator.put(Parameter.FOURS, comparatorForFours);
-        sortParameterComparator.put(Parameter.SIX, comparatorForSixes);
+        sortParameterComparator.put(Parameter.SIXES, comparatorForSixes);
         sortParameterComparator.put(Parameter.ECONOMY, comparatorForEconomy);
         sortParameterComparator.put(Parameter.WICKETS,comparatorForWickets);
+        sortParameterComparator.put(Parameter.FIVE_WICKETS, comparatorForFiveWickets);
+        sortParameterComparator.put(Parameter.FOUR_WICKETS, comparatorForFourWickets);
 
         sortParameterComparator.put(Parameter.BEST_STRIKE_RATE_MAC_SIXES_FOURS, comparatorForStrikeRate
                                                                                 .thenComparing(comparatorForSixes)
