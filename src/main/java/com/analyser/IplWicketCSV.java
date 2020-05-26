@@ -7,15 +7,6 @@ public class IplWicketCSV {
     @CsvBindByName(column = "PLAYER", required = true)
     public String player;
 
-    @CsvBindByName(column = "Mat")
-    public int match;
-
-    @CsvBindByName(column = "Inns")
-    public int innings;
-
-    @CsvBindByName(column = "Ov")
-    public double overs;
-
     @CsvBindByName(column = "Runs")
     public int runs;
 
@@ -41,9 +32,6 @@ public class IplWicketCSV {
     public String toString() {
         return "Ipl2019WicketsSheetCSV{" +
                 "player='" + player + '\'' +
-                ", match=" + match +
-                ", innings=" + innings +
-                ", overs=" + overs +
                 ", runs=" + runs +
                 ", wickets=" + wickets +
                 ", average=" + average +

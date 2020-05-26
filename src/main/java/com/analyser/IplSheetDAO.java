@@ -3,8 +3,6 @@ package com.analyser;
 public class IplSheetDAO {
 
     public String player;
-    public int match;
-    public int inning;
     public int battingRuns;
     public int bowlingRuns;
     public int sixes;
@@ -20,8 +18,6 @@ public class IplSheetDAO {
 
     public IplSheetDAO(IplRunSheetCSV iplRunSheetCSV) {
         player = iplRunSheetCSV.player;
-        match = iplRunSheetCSV.match;
-        inning = iplRunSheetCSV.innings;
         battingAverage = iplRunSheetCSV.average;
         battingRuns = iplRunSheetCSV.runs;
         battingStrikeRate = iplRunSheetCSV.battingStrikeRate;
@@ -32,8 +28,6 @@ public class IplSheetDAO {
 
     public IplSheetDAO(IplWicketCSV iplWicketCSV) {
         player = iplWicketCSV.player;
-        match = iplWicketCSV.match;
-        inning = iplWicketCSV.innings;
         bowlingAverage = iplWicketCSV.average;
         bowlingRuns = iplWicketCSV.runs;
         bowlingStrikeRate = iplWicketCSV.bowlingStrikeRate;
