@@ -7,22 +7,27 @@ import java.util.stream.Collectors;
 
 public class CricketAnalyser {
 
-    public enum Cricket { BATTING, BOWLING };
+    private Cricket cricket;
 
-    Map<String, IplSheetDAO> iplRunSheetMap;
+    public enum Cricket { BATTING, BOWLING, BATTING_BOWLING };
 
-    public CricketAnalyser() {    }
+    public CricketAnalyser(Cricket cricket) {
+        this.cricket = cricket;
+    }
 
-    public int loadIplData(Cricket cricket, String... csvFilePath) throws CricketAnalyserException {
-        iplRunSheetMap = new IplAdapterFactory().cricketFactory(cricket, csvFilePath);
-        return this.iplRunSheetMap.size();
+    Map<String, IplSheetDAO> iplSheetDAOMap;
+
+    public int loadIplData(String... csvFilePath) throws CricketAnalyserException {
+        iplSheetDAOMap = new IplAdapterFactory().cricketFactory(cricket, csvFilePath);
+        return this.iplSheetDAOMap.size();
     }
 
     public String getSortData(SortData.Parameter parameter) {
         Comparator<IplSheetDAO> iplComparator;
         iplComparator = SortData.getArgument(parameter);
-        List sortedData = iplRunSheetMap.values().stream().
-                sorted(iplComparator).collect(Collectors.toList());
+        List sortedData = iplSheetDAOMap.values().stream().
+                sorted(iplComparator)
+                .collect(Collectors.toList());
         return new Gson().toJson(sortedData);
     }
 

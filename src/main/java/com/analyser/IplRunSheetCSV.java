@@ -8,19 +8,13 @@ public class IplRunSheetCSV {
     public String player;
 
     @CsvBindByName(column ="Runs", required=true)
-    public int runs;
+    public int battingRuns;
 
     @CsvBindByName(column ="SR", required=true)
     public double battingStrikeRate;
 
     @CsvBindByName(column ="Avg", required=true)
-    public double average;
-
-    @CsvBindByName(column ="100", required=true )
-    public int hundreds;
-
-    @CsvBindByName(column ="50", required=true)
-    public int fiftys;
+    public double battingAverage;
 
     @CsvBindByName(column ="6s" , required=true)
     public int sixes;
@@ -28,15 +22,16 @@ public class IplRunSheetCSV {
     @CsvBindByName(column ="4s" , required=true)
     public int fours;
 
+    public IplRunSheetCSV() {
+    }
+
     @Override
     public String toString() {
         return "Ipl2019RunsSheet{" +
                 "player='" + player + '\'' +
-                ", runs=" + runs +
+                ", runs=" + battingRuns +
                 ", strikeRate=" + battingStrikeRate +
-                ", average=" + average +
-                ", hundreds=" + hundreds +
-                ", fiftys=" + fiftys +
+                ", average=" + battingAverage +
                 ", sixes=" + sixes +
                 ", fours=" + fours +
                 '}';
