@@ -139,6 +139,17 @@ public class CricketAnalyserTest {
     }
 
     @Test
+    public void givenCSVFile_shouldReturn_whoHasHavingBestStrikeRate_andManimumSixesAndFours()  {
+        try {
+            CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.Cricket.BATTING);
+            cricketAnalyser.loadIplData(MOST_RUN_CSV_FILE_PATH);
+            String sortedRunsData = cricketAnalyser.getSortData(SortData.Parameter.BEST_STRIKE_RATE_MAXIMUM_SIXES_FOURS);
+            IplRunSheetCSV[] iplRunSheetCSVS = new Gson().fromJson(sortedRunsData, IplRunSheetCSV[].class);
+            Assert.assertEquals("Bhuvneshwar Kumar", iplRunSheetCSVS[0].player);
+        } catch (CricketAnalyserException ignore) { }
+    }
+
+    @Test
     public void givenCSVFile_shouldReturn_whoHasGreatAverage_withBestStrikingRate()  {
         try {
             CricketAnalyser cricketAnalyser = new CricketAnalyser(CricketAnalyser.Cricket.BATTING);

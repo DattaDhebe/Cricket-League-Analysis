@@ -25,8 +25,8 @@ public class CricketAnalyser {
     public String getSortData(SortData.Parameter parameter) {
         Comparator<IplSheetDAO> iplComparator;
         iplComparator = SortData.getArgument(parameter);
-        List sortedData = iplSheetDAOMap.values().stream().
-                sorted(iplComparator)
+        List sortedData = iplSheetDAOMap.values().stream()
+                .sorted(iplComparator)
                 .collect(Collectors.toList());
         return new Gson().toJson(sortedData);
     }

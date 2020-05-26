@@ -8,7 +8,6 @@ public class BattingAndBowlingAdapter extends IplFileAdapter {
     Map<String, IplSheetDAO> battingData = new HashMap<>();
     Map<String, IplSheetDAO> bowlingData = new HashMap<>();
 
-    @Override
     public Map<String, IplSheetDAO> loadCricketData(CricketAnalyser.Cricket cricket, String... csvFilePath) throws CricketAnalyserException {
         battingData = super.loadCricketData(IplRunSheetCSV.class, csvFilePath[0]);
         bowlingData = super.loadCricketData(IplWicketCSV.class, csvFilePath[1]);

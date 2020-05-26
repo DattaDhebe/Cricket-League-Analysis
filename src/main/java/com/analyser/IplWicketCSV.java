@@ -7,40 +7,39 @@ public class IplWicketCSV {
     @CsvBindByName(column = "PLAYER", required = true)
     public String player;
 
-    @CsvBindByName(column = "Runs")
+    @CsvBindByName(column = "Runs", required = true)
     public int bowlingRuns;
 
-    @CsvBindByName(column = "Wkts")
+    @CsvBindByName(column = "Wkts", required = true)
     public int wickets;
 
-    @CsvBindByName(column = "Avg")
+    @CsvBindByName(column = "Avg", required = true)
     public double bowlingAverage;
 
-    @CsvBindByName(column = "Econ")
+    @CsvBindByName(column = "Econ", required = true)
     public double economy;
 
-    @CsvBindByName(column = "SR")
+    @CsvBindByName(column = "SR", required = true)
     public double bowlingStrikeRate;
 
-    @CsvBindByName(column = "5w")
+    @CsvBindByName(column = "5w", required = true)
     public int fiveWickets;
 
-    @CsvBindByName(column = "4w")
+    @CsvBindByName(column = "4w", required = true)
     public int fourWickets;
-
 
     public IplWicketCSV() {
     }
 
     @Override
     public String toString() {
-        return "Ipl2019WicketsSheetCSV{" +
+        return "IplWicketCSV{" +
                 "player='" + player + '\'' +
-                ", runs=" + bowlingRuns +
+                ", bowlingRuns=" + bowlingRuns +
                 ", wickets=" + wickets +
-                ", average=" + bowlingAverage +
+                ", bowlingAverage=" + bowlingAverage +
                 ", economy=" + economy +
-                ", strikeRate=" + bowlingStrikeRate +
+                ", bowlingStrikeRate=" + bowlingStrikeRate +
                 ", fiveWickets=" + fiveWickets +
                 ", fourWickets=" + fourWickets +
                 '}';

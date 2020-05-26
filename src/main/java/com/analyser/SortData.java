@@ -14,55 +14,65 @@ public class SortData {
         MAXIMUM_RUN_WITH_BATTING_AVERAGE, BEST_BOWLING_BATTING_AVERAGE, BEST_BOWLING_AVERAGE_STRIKE_RATE;
     }
 
-    static Map<Parameter, Comparator> sortParameterComparator = new HashMap<>();
+    static Map<Parameter, Comparator> comparatorMap = new HashMap<>();
 
     SortData() {    }
 
     static {
 
          Comparator<IplSheetDAO> comparatorForBattingAverage = Comparator.comparing(cricket -> cricket.battingAverage);
-         Comparator<IplSheetDAO> comparatorForBowlingAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
-         Comparator<IplSheetDAO> comparatorForStrikeRate = Comparator.comparing(cricket -> cricket.battingStrikeRate);
-         Comparator<IplSheetDAO> comparatorForBowlingStrikeRate = Comparator.comparing(cricket -> cricket.bowlingStrikeRate);
-         Comparator<IplSheetDAO> comparatorForFours = Comparator.comparing(cricket -> cricket.fours);
-         Comparator<IplSheetDAO> comparatorForSixes = Comparator.comparing(cricket -> cricket.sixes);
-         Comparator<IplSheetDAO> comparatorForEconomy = Comparator.comparing(cricket -> cricket.economy);
-         Comparator<IplSheetDAO> comparatorForFiveWickets = Comparator.comparing(cricket -> cricket.fiveWickets);
-         Comparator<IplSheetDAO> comparatorForFourWickets = Comparator.comparing(cricket -> cricket.fourWickets);
-         Comparator<IplSheetDAO> comparatorForBattingRun = Comparator.comparing(cricket -> cricket.battingRuns);
-         Comparator<IplSheetDAO> comparatorForWickets = Comparator.comparing(cricket -> cricket.wickets);
+         comparatorMap.put(Parameter.BATTING_AVERAGE, comparatorForBattingAverage);
 
-         sortParameterComparator.put(Parameter.BATTING_AVERAGE, comparatorForBattingAverage);
-         sortParameterComparator.put(Parameter.BOWLING_AVERAGE, comparatorForBowlingAverage);
-         sortParameterComparator.put(Parameter.STRIKE_RATE, comparatorForStrikeRate);
-         sortParameterComparator.put(Parameter.BOWLING_STRIKE_RATE,comparatorForBowlingStrikeRate);
-         sortParameterComparator.put(Parameter.FOURS, comparatorForFours);
-         sortParameterComparator.put(Parameter.SIXES, comparatorForSixes);
-         sortParameterComparator.put(Parameter.ECONOMY, comparatorForEconomy);
-         sortParameterComparator.put(Parameter.FIVE_WICKETS, comparatorForFiveWickets);
-         sortParameterComparator.put(Parameter.FOUR_WICKETS, comparatorForFourWickets);
-         sortParameterComparator.put(Parameter.BATTING_RUNS,comparatorForBattingRun);
-         sortParameterComparator.put(Parameter.WICKETS,comparatorForWickets);
-         sortParameterComparator.put(Parameter.BEST_STRIKE_RATE_MAXIMUM_SIXES_FOURS, comparatorForStrikeRate
-                                                                                     .thenComparing(comparatorForSixes)
-                                                                                     .thenComparing(comparatorForFours));
-         sortParameterComparator.put(Parameter.GREAT_AVERAGE_BEST_STRIKE_RATE, comparatorForBattingAverage
-                                                                               .thenComparing(comparatorForStrikeRate));
-         sortParameterComparator.put(Parameter.MAXIMUM_RUN_WITH_BATTING_AVERAGE, comparatorForBattingRun
-                                                                                 .thenComparing(comparatorForBattingAverage));
-         sortParameterComparator.put(Parameter.FIVE_FOUR_WICKETS_STRIKE_RATE, comparatorForFours
-                                                                              .thenComparing(comparatorForFiveWickets)
-                                                                              .thenComparing(comparatorForStrikeRate));
-         sortParameterComparator.put(Parameter.BEST_BOWLING_AVERAGE_STRIKE_RATE, comparatorForBowlingAverage
-                                                                                 .thenComparing(comparatorForBowlingStrikeRate));
-         sortParameterComparator.put(Parameter.BEST_BOWLING_BATTING_AVERAGE, comparatorForBowlingAverage
-                                                                             .thenComparing(comparatorForBattingAverage));
-         sortParameterComparator.put(Parameter.BEST_ALL_ROUNDER, comparatorForBattingRun
-                                                                 .thenComparing(comparatorForWickets));
+         Comparator<IplSheetDAO> comparatorForBowlingAverage = Comparator.comparing(cricket -> cricket.bowlingAverage);
+         comparatorMap.put(Parameter.BOWLING_AVERAGE, comparatorForBowlingAverage);
+
+         Comparator<IplSheetDAO> comparatorForStrikeRate = Comparator.comparing(cricket -> cricket.battingStrikeRate);
+         comparatorMap.put(Parameter.STRIKE_RATE, comparatorForStrikeRate);
+
+         Comparator<IplSheetDAO> comparatorForBowlingStrikeRate = Comparator.comparing(cricket -> cricket.bowlingStrikeRate);
+         comparatorMap.put(Parameter.BOWLING_STRIKE_RATE,comparatorForBowlingStrikeRate);
+
+         Comparator<IplSheetDAO> comparatorForFours = Comparator.comparing(cricket -> cricket.fours);
+         comparatorMap.put(Parameter.FOURS, comparatorForFours);
+
+         Comparator<IplSheetDAO> comparatorForSixes = Comparator.comparing(cricket -> cricket.sixes);
+         comparatorMap.put(Parameter.SIXES, comparatorForSixes);
+
+         Comparator<IplSheetDAO> comparatorForEconomy = Comparator.comparing(cricket -> cricket.economy);
+         comparatorMap.put(Parameter.ECONOMY, comparatorForEconomy);
+
+         Comparator<IplSheetDAO> comparatorForFiveWickets = Comparator.comparing(cricket -> cricket.fiveWickets);
+         comparatorMap.put(Parameter.FIVE_WICKETS, comparatorForFiveWickets);
+
+         Comparator<IplSheetDAO> comparatorForFourWickets = Comparator.comparing(cricket -> cricket.fourWickets);
+         comparatorMap.put(Parameter.FOUR_WICKETS, comparatorForFourWickets);
+
+         Comparator<IplSheetDAO> comparatorForBattingRun = Comparator.comparing(cricket -> cricket.battingRuns);
+         comparatorMap.put(Parameter.BATTING_RUNS,comparatorForBattingRun);
+
+         Comparator<IplSheetDAO> comparatorForWickets = Comparator.comparing(cricket -> cricket.wickets);
+         comparatorMap.put(Parameter.WICKETS,comparatorForWickets);
+
+         comparatorMap.put(Parameter.BEST_STRIKE_RATE_MAXIMUM_SIXES_FOURS, comparatorForStrikeRate
+                                                                           .thenComparing(comparatorForSixes)
+                                                                           .thenComparing(comparatorForFours));
+         comparatorMap.put(Parameter.GREAT_AVERAGE_BEST_STRIKE_RATE, comparatorForBattingAverage
+                                                                     .thenComparing(comparatorForStrikeRate));
+         comparatorMap.put(Parameter.MAXIMUM_RUN_WITH_BATTING_AVERAGE, comparatorForBattingRun
+                                                                       .thenComparing(comparatorForBattingAverage));
+         comparatorMap.put(Parameter.FIVE_FOUR_WICKETS_STRIKE_RATE, comparatorForFours
+                                                                    .thenComparing(comparatorForFiveWickets)
+                                                                    .thenComparing(comparatorForStrikeRate));
+         comparatorMap.put(Parameter.BEST_BOWLING_AVERAGE_STRIKE_RATE, comparatorForBowlingAverage
+                                                                       .thenComparing(comparatorForBowlingStrikeRate));
+         comparatorMap.put(Parameter.BEST_BOWLING_BATTING_AVERAGE, comparatorForBowlingAverage
+                                                                   .thenComparing(comparatorForBattingAverage));
+         comparatorMap.put(Parameter.BEST_ALL_ROUNDER, comparatorForBattingRun
+                                                       .thenComparing(comparatorForWickets));
     }
 
     public static Comparator<IplSheetDAO> getArgument(Parameter parameter) {
-        Comparator<IplSheetDAO> getComparator = sortParameterComparator.get(parameter);
+        Comparator<IplSheetDAO> getComparator = comparatorMap.get(parameter);
         return getComparator;
     }
 }

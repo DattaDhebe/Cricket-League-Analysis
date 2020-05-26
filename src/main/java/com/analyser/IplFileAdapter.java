@@ -24,7 +24,7 @@ public abstract class IplFileAdapter {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<E> csvFileIterator = csvBuilder.getCSVFileIterator(reader, iplCSVClass);
-            Iterable<E> csvIterable=()->csvFileIterator;
+            Iterable<E> csvIterable = () -> csvFileIterator;
             if (iplCSVClass.getName().equals("com.analyser.IplRunSheetCSV")) {
                 StreamSupport.stream(csvIterable.spliterator(),false)
                         .map(IplRunSheetCSV.class::cast)

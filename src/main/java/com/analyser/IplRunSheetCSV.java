@@ -27,11 +27,11 @@ public class IplRunSheetCSV {
 
     @Override
     public String toString() {
-        return "Ipl2019RunsSheet{" +
+        return "IplRunSheetCSV{" +
                 "player='" + player + '\'' +
-                ", runs=" + battingRuns +
-                ", strikeRate=" + battingStrikeRate +
-                ", average=" + battingAverage +
+                ", battingRuns=" + battingRuns +
+                ", battingStrikeRate=" + battingStrikeRate +
+                ", battingAverage=" + battingAverage +
                 ", sixes=" + sixes +
                 ", fours=" + fours +
                 '}';
